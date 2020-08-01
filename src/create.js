@@ -1,3 +1,5 @@
+import Score from "./Score";
+
 export default function create() {
   this.bg = this.add.sprite(
     this.game.config.width / 2,
@@ -9,12 +11,8 @@ export default function create() {
     this.game.config.height
   );
 
-  //  The score
-  this.game.score = 0;
-  this.game.scoreText = this.add.text(16, 16, "score: 0", {
-    fontSize: "32px",
-    fill: "#000",
-  });
+  //  Score init
+  this.game.score = new Score(this);
 
   // add net background
   this.game.net = this.physics.add.sprite(100, 450, "netBackground");
@@ -77,8 +75,9 @@ function collectFish(player, fish) {
   fish.disableBody(true, true);
 
   //  Add and update the score
-  this.game.score += 10;
-  this.game.scoreText.setText("Score: " + this.game.score);
+  this.game.score.update(this.game.score.number + 10);
+  // this.game.score += 10;
+  // this.game.scoreText.setText("Score: " + this.game.score);
 
   // if (stars.countActive(true) === 0) {
   //   //  A new batch of stars to collect
