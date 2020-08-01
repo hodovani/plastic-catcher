@@ -1,7 +1,12 @@
 const velocity = 150;
-const fishVelocity = 20;
+const fishVelocity = -30;
 
 export default function update() {
+  /**
+   * Net movement
+   *
+   * Add arrow control to net
+   */
   if (this.game.cursors.up.isDown) {
     this.game.net.setVelocityY(-velocity);
   } else if (this.game.cursors.down.isDown) {
@@ -17,15 +22,22 @@ export default function update() {
     this.game.net.setVelocityX(0);
   }
 
+  /**
+   * Fish movement
+   *
+   * Flip image and velocity horizontally when fish touch screen
+   */
   if (
     this.game.fish.body.touching.right ||
     this.game.fish.body.blocked.right
   ) {
-    this.game.fish.setVelocityX(-fishVelocity);
+    this.game.fish.flipX = false;
+    this.game.fish.setVelocityX(fishVelocity);
   } else if (
     this.game.fish.body.touching.left ||
     this.game.fish.body.blocked.left
   ) {
-    this.game.fish.setVelocityX(fishVelocity);
+    this.game.fish.flipX = true;
+    this.game.fish.setVelocityX(-fishVelocity);
   }
 }

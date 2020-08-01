@@ -23,8 +23,15 @@ export default function create() {
 
   // add fish
   this.game.fish = this.physics.add.sprite(100, 100, "fish0");
-  this.game.fish.setVelocityX(20);
+  this.game.fish.setVelocityX(-30);
   this.game.fish.setCollideWorldBounds(true);
+  this.anims.create({
+    key: "swim",
+    frames: this.anims.generateFrameNumbers("fish0"),
+    frameRate: 24,
+    repeat: -1,
+  });
+  this.game.fish.anims.play("swim", true);
 
   //  Collide the player and the stars with the platforms
   this.physics.add.collider(this.game.net, this.game.fish);
