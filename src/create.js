@@ -1,4 +1,5 @@
 import Score from "./Score";
+import Fishes from "./Fishes";
 
 export default function create() {
   this.bg = this.add.sprite(
@@ -20,16 +21,7 @@ export default function create() {
   this.game.cursors = this.input.keyboard.createCursorKeys();
 
   // add fish
-  this.game.fish = this.physics.add.sprite(100, 100, "fish0");
-  this.game.fish.setVelocityX(-30);
-  this.game.fish.setCollideWorldBounds(true);
-  this.anims.create({
-    key: "swim",
-    frames: this.anims.generateFrameNumbers("fish0"),
-    frameRate: 24,
-    repeat: -1,
-  });
-  this.game.fish.anims.play("swim", true);
+  this.game.fishes = new Fishes({ scene: this });
 
   //  Collide the player and the stars with the platforms
   this.physics.add.collider(this.game.net, this.game.fish);
