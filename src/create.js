@@ -33,6 +33,8 @@ export default function create() {
   //  Collide the player and the stars with the platforms
   this.physics.add.collider(this.game.net, this.game.fish);
 
+  // this.game.on;
+
   //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
   this.game.fishes.fishes.forEach(({ fish }) =>
     this.physics.add.overlap(
@@ -43,6 +45,10 @@ export default function create() {
       this
     )
   );
+
+  this.input.keyboard.on("keydown-" + "SPACE", function (event) {
+    this.game.net.isCatching = true;
+  });
 }
 
 function collectFish(player, fish) {

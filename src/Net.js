@@ -1,3 +1,5 @@
+const distanceDelta = 0.01;
+
 export default class Net {
   constructor(scene) {
     this.center = { x: 180, y: 200 };
@@ -6,7 +8,11 @@ export default class Net {
     this.net = scene.physics.add.sprite(180, 210, "netBackground");
     this.net.setCollideWorldBounds(true);
     this.net.angle = 0;
+    this.isCatching = false;
+    this.isReturning = false;
+    this.distance = 0;
   }
+
   reset() {
     //re-init properites
     this.x = this.scene.rnd.integerInRange(0, this.w);
@@ -18,6 +24,7 @@ export default class Net {
     this.scale.y = this.scale.x;
     this.alpha = 0.1 + Math.random();
   }
+
   move() {
     this.x += this.drift;
     this.y += this.fallSpeed;
@@ -27,7 +34,35 @@ export default class Net {
       this.reset();
     }
   }
+
   update() {
+    if (this.isCatching) {
+      this.updateDistance();
+    } else {
+      this.updateAngle();
+    }
+  }
+
+  updateDistance() {
+    if (this.isReturning) {
+      this.distance -= distanceDelta;
+    } else {
+      this.distance += distanceDelta;
+    }
+    if (
+      this.distance < 0 ||
+      this.distance > 1 ||
+      this.distance < -1
+    ) {
+      this.distance = 0;
+      this.isCatching = false;
+    } else {
+      this.net.x += this.distance * Math.cos(this.net.angle - 90);
+      this.net.y += this.distance * Math.sin(this.net.angle - 90);
+    }
+  }
+
+  updateAngle() {
     Phaser.Actions.RotateAroundDistance(
       [this.net],
       this.center,
