@@ -7,7 +7,7 @@ export default class Fishes {
 
     for (let i = 0; i < 5; i++) {
       this.fishes.push(
-        new Fish({ x: i * 50, y: 200 + i * 50, scene: this.scene })
+        new Fish({ x: i * 50, y: 400 + i * 50, scene: this.scene })
       );
     }
   }
