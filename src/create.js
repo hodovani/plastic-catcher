@@ -16,7 +16,7 @@ export default function create() {
   this.game.score = new Score(this);
 
   // add net background
-  this.game.net = this.physics.add.sprite(100, 450, "netBackground");
+  this.game.net = this.physics.add.sprite(180, 210, "netBackground");
   this.game.net.setCollideWorldBounds(true);
   this.game.cursors = this.input.keyboard.createCursorKeys();
 
