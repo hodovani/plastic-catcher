@@ -27,17 +27,5 @@ export default function update() {
    *
    * Flip image and velocity horizontally when fish touch screen
    */
-  if (
-    this.game.fish.body.touching.right ||
-    this.game.fish.body.blocked.right
-  ) {
-    this.game.fish.flipX = false;
-    this.game.fish.setVelocityX(fishVelocity);
-  } else if (
-    this.game.fish.body.touching.left ||
-    this.game.fish.body.blocked.left
-  ) {
-    this.game.fish.flipX = true;
-    this.game.fish.setVelocityX(-fishVelocity);
-  }
+  this.game.fishes.update();
 }

@@ -20,6 +20,14 @@ export default function create() {
   this.game.net.setCollideWorldBounds(true);
   this.game.cursors = this.input.keyboard.createCursorKeys();
 
+  // add fish animation
+  this.game.anims.create({
+    key: "swim",
+    frames: this.anims.generateFrameNumbers("fish"),
+    frameRate: 24,
+    repeat: -1,
+  });
+
   // add fish
   this.game.fishes = new Fishes({ scene: this });
 
@@ -27,40 +35,15 @@ export default function create() {
   this.physics.add.collider(this.game.net, this.game.fish);
 
   //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-  this.physics.add.overlap(
-    this.game.net,
-    this.game.fish,
-    collectFish,
-    null,
-    this
+  this.game.fishes.fishes.forEach(({ fish }) =>
+    this.physics.add.overlap(
+      this.game.net,
+      fish,
+      collectFish,
+      null,
+      this
+    )
   );
-
-  // var mummyAnimation = this.anims.create({
-  //   key: "swim",
-  //   frames: this.anims.generateFrameNumbers("fish0"),
-  //   frameRate: 7,
-  //   repeat: -1,
-  // });
-  // for (let i = 1; i < 5; i++) {
-  //   let sprite = this.add.sprite(i * 100, 300, "fish0").setScale(1);
-  //   sprite.play("swim");
-  // }
-
-  // var Fish = new Phaser.Class({
-  //   Extends: Phaser.GameObjects.Image,
-
-  //   initialize: function Food(scene, x, y) {
-  //     Phaser.GameObjects.Image.call(this, scene);
-
-  //     this.setTexture("fish0");
-  //     this.setPosition(x * 16, y * 16);
-  //     this.setOrigin(0);
-
-  //     this.total = 0;
-
-  //     scene.children.add(this);
-  //   },
-  // });
 }
 
 function collectFish(player, fish) {

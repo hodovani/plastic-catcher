@@ -1,10 +1,10 @@
 import background from "./assets/img/background.png";
-import fish0 from "./assets/img/fish0.png";
+import fish from "./assets/img/fish.png";
 import netBackground from "./assets/img/netBackground.png";
 
 export default function preload() {
   this.load.image("background", background);
-  this.load.spritesheet("fish0", fish0, {
+  this.load.spritesheet("fish", fish, {
     frameWidth: 52,
     frameHeight: 35.8,
   });
