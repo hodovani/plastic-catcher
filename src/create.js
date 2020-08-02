@@ -1,5 +1,6 @@
 import Score from "./Score";
 import Fishes from "./Fishes";
+import Net from "./Net";
 
 export default function create() {
   this.bg = this.add.sprite(
@@ -16,9 +17,7 @@ export default function create() {
   this.game.score = new Score(this);
 
   // add net background
-  this.game.net = this.physics.add.sprite(180, 210, "netBackground");
-  this.game.net.setCollideWorldBounds(true);
-  this.game.cursors = this.input.keyboard.createCursorKeys();
+  this.game.net = new Net(this);
 
   // add fish animation
   this.game.anims.create({
