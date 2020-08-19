@@ -1,5 +1,5 @@
 const distanceDelta = 0.01;
-
+const angleDelta = -90;
 export default class Net {
   constructor(scene) {
     this.center = { x: 180, y: 200 };
@@ -55,10 +55,15 @@ export default class Net {
       this.distance < -1
     ) {
       this.distance = 0;
+      this.net.angle = 0;
       this.isCatching = false;
     } else {
-      this.net.x += this.distance * Math.cos(this.net.angle - 90);
-      this.net.y += this.distance * Math.sin(this.net.angle - 90);
+      this.net.x +=
+        Math.cos(((this.net.angle - angleDelta) * Math.PI) / 180) *
+        this.distance;
+      this.net.y +=
+        Math.sin(((this.net.angle - angleDelta) * Math.PI) / 180) *
+        this.distance;
     }
   }
 
@@ -76,9 +81,11 @@ export default class Net {
       ) *
         180) /
       Math.PI;
-    this.net.angle = angleDeg - 90;
+    // Rotate the net to make the top always look at the center of rotation
+    this.net.angle = angleDeg + angleDelta;
     if (this.net.angle > 60 || this.net.angle < -60) {
       this.angleKey *= -1;
     }
+    // console.log(this.net.angle);
   }
 }
