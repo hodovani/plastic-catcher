@@ -49,21 +49,18 @@ export default class Net {
     } else {
       this.distance += distanceDelta;
     }
-    if (
-      this.distance < 0 ||
-      this.distance > 1 ||
-      this.distance < -1
-    ) {
-      this.distance = 0;
-      this.net.angle = 0;
+    if (this.distance < 0) {
       this.isCatching = false;
+      this.isReturning = false;
+    } else if (this.distance > 1) {
+      this.isReturning = true;
     } else {
       this.net.x +=
         Math.cos(((this.net.angle - angleDelta) * Math.PI) / 180) *
-        this.distance;
+        (this.distance * (this.isReturning ? -1 : 1));
       this.net.y +=
         Math.sin(((this.net.angle - angleDelta) * Math.PI) / 180) *
-        this.distance;
+        (this.distance * (this.isReturning ? -1 : 1));
     }
   }
 
