@@ -6,11 +6,23 @@ export default class Net {
     this.scene = scene;
     this.angleKey = 1;
     this.net = scene.physics.add.sprite(180, 210, "netBackground");
+    this.ropeTop = scene.physics.add.sprite(180, 150);
     this.net.setCollideWorldBounds(true);
     this.net.angle = 0;
     this.isCatching = false;
     this.isReturning = false;
     this.distance = 0;
+
+    this.rope = new Phaser.Geom.Line(
+      this.net.x,
+      this.net.y,
+      this.ropeTop.x,
+      this.ropeTop.y
+    );
+
+    this.graphics = scene.add.graphics({
+      lineStyle: { width: 4, color: 0xaa00aa },
+    });
   }
 
   reset() {
@@ -41,6 +53,15 @@ export default class Net {
     } else {
       this.updateAngle();
     }
+
+    this.graphics.clear();
+    this.rope.setTo(
+      this.net.x,
+      this.net.y,
+      this.ropeTop.x,
+      this.ropeTop.y
+    );
+    this.graphics.strokeLineShape(this.rope);
   }
 
   updateDistance() {
